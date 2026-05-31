@@ -50,3 +50,34 @@ Las carpetas y los ficheros están numerados según el orden en que deben ejecut
 - **WideWorldImporters** — operacional (Bronze): datos originales + extensión bancaria.
 - **WideWorldImportersDW** — Silver (Integration) y Gold (Dimension / Fact).
 - **DTGOB** — gobierno del dato: Mapeador, vistas de metadatos y motor de calidad.
+
+## Cuadro de mando (06_powerbi)
+
+`06_powerbi/diccionarioDatos.pbix` es el cuadro de mando del framework e integra las
+tres dimensiones: diccionario, linaje y calidad del dato.
+
+Se conecta a la base de datos **`DTGOB`** y consume principalmente estos objetos del
+esquema `dev`:
+
+- `vs_metadataTable`, `vs_metadataColumns` — diccionario
+- `vs_mapeos_enriquecidos` — linaje
+- `DQ_Resultados` — métricas de calidad
+- `GlosarioTerminos` — glosario
+
+### Abrirlo en otra máquina
+
+El `.pbix` guarda la conexión al servidor en el que se creó, por lo que en otro equipo
+hay que reapuntar el origen de datos:
+
+1. Abrir `diccionarioDatos.pbix` en Power BI Desktop.
+2. **Transformar datos → Configuración del origen de datos** (o **Archivo → Opciones y
+   configuración → Configuración del origen de datos**).
+3. En **Cambiar origen**, poner el **Servidor** de la instancia SQL Server local
+   (p. ej. `localhost`, `.\SQLEXPRESS` o el nombre del equipo) y dejar la **Base de
+   datos** como **`DTGOB`** (es el nombre con el que los scripts crean los objetos de
+   gobierno; conviene no cambiarlo porque algunas vistas referencian `DTGOB`
+   explícitamente).
+4. **Aplicar cambios** para refrescar.
+
+> Requisito previo: haber ejecutado antes los scripts de `01_modelo` a `05_calidad` para
+> que existan las vistas y tablas en `DTGOB`.
