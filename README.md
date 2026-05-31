@@ -1,6 +1,8 @@
-# Framework de Gobierno del Dato sobre arquitectura medallón (SQL Server)
+# Framework de Gobierno del Dato con trazabilidad y control de calidad en arquitecturas analíticas
 
-Scripts del TFM. Implementan, sobre WideWorldImporters / WideWorldImportersDW y una
+Scripts del TFM.
+
+Implementan, sobre WideWorldImporters / WideWorldImportersDW y una
 base de gobierno (DTGOB), una extensión bancaria con las tres capas de la arquitectura
 medallón (Bronze, Silver, Gold) y los tres componentes del framework: diccionario de
 datos, módulo de linaje y motor de calidad.
@@ -12,13 +14,13 @@ Las carpetas y los ficheros están numerados según el orden en que deben ejecut
 ### 01_modelo
 1. `01_ModeloDatos_BANCA.sql` — crea la estructura de las tres capas.
 2. `02_drop_ModeloDatos_BANCA.sql` — depuración posterior: elimina las tablas
-   declaradas pero no alimentadas por ningún flujo (idempotente, usa DROP IF EXISTS).
+   declaradas pero no alimentadas por ningún flujo.
 3. `03_ms_description.sql` — carga las descripciones extendidas (MS_Description) de
    tablas y campos, que alimentan el diccionario.
 
 ### 02_generador
 - `GeneradorBronze_BANCA.sql` — genera los datos sintéticos de la capa Bronze
-  (incremental, relanzable). Los IBAN llevan dígito de control mod-97 correcto.
+  (incremental, relanzable).
 - `fn_ValidaIBAN.sql` — función de validación de IBAN español (mod-97).
 
 ### 03_etl
@@ -46,5 +48,5 @@ Las carpetas y los ficheros están numerados según el orden en que deben ejecut
 ## Bases de datos
 
 - **WideWorldImporters** — operacional (Bronze): datos originales + extensión bancaria.
-- **WideWorldImportersDW** — almacén: Silver (Integration) y Gold (Dimension / Fact).
+- **WideWorldImportersDW** — Silver (Integration) y Gold (Dimension / Fact).
 - **DTGOB** — gobierno del dato: Mapeador, vistas de metadatos y motor de calidad.
