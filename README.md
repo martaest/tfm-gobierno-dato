@@ -62,7 +62,6 @@ esquema `dev`:
 - `vs_metadataTable`, `vs_metadataColumns` — diccionario
 - `vs_mapeos_enriquecidos` — linaje
 - `DQ_Resultados` — métricas de calidad
-- `GlosarioTerminos` — glosario
 
 ### Abrirlo en otra máquina
 
